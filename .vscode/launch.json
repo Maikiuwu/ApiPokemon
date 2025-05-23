@@ -1,0 +1,14 @@
+{
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Spring Boot-GuessApplication<guess>",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "mainClass": "com.pokemon.guess.GuessApplication",
+            "projectName": "guess",
+            "args": "",
+            "envFile": "${workspaceFolder}/.env"
+        }
+    ]
+}
