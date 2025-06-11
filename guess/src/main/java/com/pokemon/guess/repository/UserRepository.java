@@ -1,12 +1,13 @@
 package com.pokemon.guess.repository;
 
-import com.pokemon.guess.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
-
+import com.pokemon.guess.entity.User;
 import java.util.Optional;
-/*
-public interface UserRepository extends JpaRepository<User, Long> {
-    Optional<User> findByCorreo(String correo);
-    boolean existsByCorreo(String correo);
+
+public interface UserRepository extends JpaRepository<User, Integer> {
+    boolean existsByUsername(String username);
+    boolean existsByEmail(String email);
+    Optional<User> findByUsernameAndPassword(String username, String password);
+    
+
 }
-*/
