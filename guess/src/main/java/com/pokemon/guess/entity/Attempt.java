@@ -23,11 +23,11 @@ public class Attempt {
     @Column(nullable = false)
     private Timestamp attemptTime = new Timestamp(System.currentTimeMillis());
 
-    // getters and setters
     public Attempt() {
         // Constructor vacío requerido por JPA
     }
-    
+
+    // getters and setters
     public Integer getIdAttempt() {
         return idAttempt;
     }
