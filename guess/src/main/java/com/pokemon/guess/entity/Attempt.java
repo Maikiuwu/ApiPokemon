@@ -21,6 +21,9 @@ public class Attempt {
     private String spriteUrl;
 
     @Column(nullable = false)
+    private int attempts;
+
+    @Column(nullable = false)
     private Timestamp attemptTime = new Timestamp(System.currentTimeMillis());
 
     public Attempt() {
@@ -66,6 +69,14 @@ public class Attempt {
 
     public void setAttemptTime(Timestamp attemptTime) {
         this.attemptTime = attemptTime;
+    }
+
+    public int getAttempts() {
+        return attempts;
+    }
+
+    public void setAttempts(int attempts) {
+        this.attempts = attempts;
     }
 
     public Attempt(Integer idAttempt, User user, String pokemonName, String spriteUrl, Timestamp attemptTime) {
