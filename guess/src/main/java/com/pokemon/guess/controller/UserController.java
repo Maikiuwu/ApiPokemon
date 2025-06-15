@@ -4,10 +4,16 @@ import org.springframework.web.bind.annotation.RestController;
 import com.pokemon.guess.service.AttemptsService;
 import jakarta.validation.Valid;
 import com.pokemon.guess.entity.Attempt;
+import com.pokemon.guess.repository.UserRepository;
+import com.pokemon.guess.entity.User;
+import java.util.List;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+
 
 @RestController
 @RequestMapping("/api/users")
@@ -16,8 +22,21 @@ public class UserController {
     @Autowired
     private AttemptsService attemptsService;
 
+    @Autowired
+    private UserRepository userRepository;
+
+    @PostMapping("/updatescore")
+        public ResponseEntity<?> registerScore(@Valid @RequestBody User user) {
+        try {
+            User updatedUser = attemptsService.plusScore(user);
+            return ResponseEntity.ok(updatedUser);
+        } catch (RuntimeException e) {
+            return ResponseEntity.badRequest().body(e.getMessage());
+        }
+    }
+
     @PostMapping("/score")
-    public ResponseEntity<?> registerScore(@Valid @RequestBody Attempt attempt) {
+    public ResponseEntity<?> registerAttempt(@Valid @RequestBody Attempt attempt) {
         try {
             Attempt createdAttempt = attemptsService.createAttempt(attempt);
             return ResponseEntity.ok(createdAttempt);
@@ -25,5 +44,12 @@ public class UserController {
             return ResponseEntity.badRequest().body(e.getMessage());
         }
     }
+
+    @GetMapping("/ranking")
+    public ResponseEntity<List<User>> getRanking() {
+        List<User> ranking = userRepository.findTop10ByOrderByScoreDesc();
+        return ResponseEntity.ok(ranking);
+    }
+    
 
 }
