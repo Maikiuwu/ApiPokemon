@@ -7,7 +7,7 @@ import com.pokemon.guess.entity.Attempt;
 import com.pokemon.guess.repository.UserRepository;
 import com.pokemon.guess.entity.User;
 import java.util.List;
-
+import com.pokemon.guess.repository.AttemptRepository;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -24,6 +24,9 @@ public class UserController {
 
     @Autowired
     private UserRepository userRepository;
+
+    @Autowired
+    private AttemptRepository attemptsRepository;
 
     @PostMapping("/updatescore")
         public ResponseEntity<?> registerScore(@Valid @RequestBody User user) {
@@ -51,6 +54,12 @@ public class UserController {
         List<User> ranking = userRepository.findTop10ByOrderByScoreDesc();
         return ResponseEntity.ok(ranking);
     }
-    
 
+    @PostMapping("/last")
+    public ResponseEntity<List<String>> getLastAttempts(@RequestBody User user) {
+        Integer userId = user.getIdUser();
+        List<String> lastAttempts = attemptsRepository.findTop5PokemonNamesByUserId(userId);
+        return ResponseEntity.ok(lastAttempts);
+    }
+    
 }
