@@ -10,7 +10,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     boolean existsByEmail(String email);
     Optional<User> findByUsernameAndPassword(String username, String password);
     List<User> findTop10ByOrderByScoreDesc();
-    List<User> findAllByOrderByIdUserAsc();
+    List<User> findAllByIdUserNotOrderByIdUserAsc(Integer idUser);
     User findByUsername(String username);
 
 }
