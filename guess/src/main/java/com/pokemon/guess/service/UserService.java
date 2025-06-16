@@ -23,6 +23,20 @@ public class UserService {
     public User login(String username, String password) {
     return userRepository.findByUsernameAndPassword(username, password)
             .orElseThrow(() -> new RuntimeException("Credenciales inválidas"));
-}
+    }
+
+    public User updateUser(User user) {
+        if (!userRepository.existsById(user.getIdUser())) {
+            throw new RuntimeException("Usuario no encontrado con ID: " + user.getIdUser());
+        }
+        return userRepository.save(user);
+    }
+
+    public void deleteUser(User user) {
+        if (!userRepository.existsById(user.getIdUser())) {
+            throw new RuntimeException("Usuario no encontrado con ID: " + user.getIdUser());
+        }
+        userRepository.delete(user);
+    }
 
 }
