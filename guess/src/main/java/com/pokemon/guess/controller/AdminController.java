@@ -40,7 +40,7 @@ public class AdminController {
 
     @GetMapping("/GetUser")
     public ResponseEntity<List<User>> listUsers() {
-        List<User> users = userRepository.findAll();
+        List<User> users = userRepository.findAllByOrderByIdUserAsc();
         return ResponseEntity.ok(users);
     }
 
