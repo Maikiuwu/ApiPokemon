@@ -28,7 +28,8 @@ public class UserController {
     @PostMapping("/updatescore")
         public ResponseEntity<?> registerScore(@Valid @RequestBody User user) {
         try {
-            User updatedUser = attemptsService.plusScore(user);
+            Integer userId = user.getIdUser();
+            User updatedUser = attemptsService.plusScore(userId);
             return ResponseEntity.ok(updatedUser);
         } catch (RuntimeException e) {
             return ResponseEntity.badRequest().body(e.getMessage());

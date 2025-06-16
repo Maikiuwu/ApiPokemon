@@ -19,10 +19,11 @@ public class AttemptsService {
         return attemptRepository.save(attempt);
     }
 
-    public User plusScore(User user) {
-        if (user.getScore() < 0) {
-            throw new RuntimeException("El puntaje no puede ser negativo.");
-        }
+    public User plusScore(Integer userId) {
+        
+        User user = userRepository.findById(userId)
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado con ID: " + userId));
+
         user.setScore(user.getScore() + 1);
         return userRepository.save(user);
     }
