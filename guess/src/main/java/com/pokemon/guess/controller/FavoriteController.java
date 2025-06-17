@@ -8,7 +8,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import com.pokemon.guess.entity.Favorite;
 import com.pokemon.guess.service.FavoriteService;
 import org.springframework.http.ResponseEntity;
-
+import com.pokemon.guess.entity.User;
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/favorites")
@@ -33,5 +34,10 @@ public class FavoriteController {
         }
     }
     
+    @PostMapping("/getByUser")
+public ResponseEntity<List<Favorite>> getFavoritesByUser(@RequestBody User user) {
+    List<Favorite> favorites = favoriteService.getFavoritesByUser(user);
+    return ResponseEntity.ok(favorites);
+}
     
 }

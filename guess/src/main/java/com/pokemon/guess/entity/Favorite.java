@@ -7,10 +7,10 @@ import jakarta.persistence.*;
 public class Favorite {
 
     @Id
-    private Integer idUser;
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Integer idFavorite;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId
     @JoinColumn(name = "id_user", nullable = false)
     private User user;
 
@@ -19,8 +19,15 @@ public class Favorite {
 
     private String spriteUrl;
 
-    public Favorite() {
-        // Constructor vacío requerido por JPA
+    public Favorite() {}
+
+    // Getters y setters
+    public Integer getIdFavorite() {
+        return idFavorite;
+    }
+
+    public void setIdFavorite(Integer idFavorite) {
+        this.idFavorite = idFavorite;
     }
 
     public User getUser() {
@@ -46,11 +53,4 @@ public class Favorite {
     public void setSpriteUrl(String spriteUrl) {
         this.spriteUrl = spriteUrl;
     }
-
-    public Favorite(User user, String pokemonName, String spriteUrl) {
-        this.user = user;
-        this.pokemonName = pokemonName;
-        this.spriteUrl = spriteUrl;
-    }
-
 }
