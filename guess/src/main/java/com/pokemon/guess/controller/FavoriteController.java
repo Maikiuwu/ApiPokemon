@@ -24,7 +24,7 @@ public class FavoriteController {
         return ResponseEntity.ok(newfavorite);
     }
 
-    @PostMapping("/removeFavourite")
+    @PostMapping("/remove")
     public ResponseEntity<String> eliminarFavorito(@RequestBody Favorite favorite) {
         try {
             favoriteService.removeFavorite(favorite.getUser().getIdUser(), favorite.getPokemonName());
